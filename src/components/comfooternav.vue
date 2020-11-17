@@ -1,27 +1,36 @@
 
 <template>
-  <div id="app">
-    <!-- <h1>我在上面</h1> -->
-
-    <comfooternav class="eert"></comfooternav>
-    <img src="https://static.maizuo.com/v5/upload/189bcf606b4bf49ad5de201a2ea5024d.jpg?x-oss-process=image/quality,Q_70"
-         alt=""
-         class="ui">
-    <FilmListTopNav class="fixed"></FilmListTopNav>
-    <!-- 下面是整体路由容器 -->
-    <router-view></router-view>
-
+  <div class="nav">
+    <ul>
+      <router-link to='/film'
+                   tag='li'
+                   active-class="active">
+        <i class="iconfont icondianying"></i>
+        <p>电影</p>
+      </router-link>
+      <router-link to='/cinema'
+                   tag='li'
+                   active-class="active">
+        <i class="iconfont iconyingyuan"></i>
+        <p>影院</p>
+      </router-link>
+      <router-link to='/center'
+                   tag='li'
+                   active-class="active">
+        <i class="iconfont icongeren"></i>
+        <p>个人</p>
+      </router-link>
+    </ul>
   </div>
 </template>
 
 
 
 <script>
-import comfooternav from '@/components/comfooternav.vue'
-import FilmListTopNav from '@/components/Filmlisttopnav'
+import "@/assets/iconfont/iconfont.css"
 export default {
   //组件名字
-  name: "app",
+  name: "comfooternav",
   //接收父组件给的东西 type是接收什么东西  default 默认值
   props: {
     list: {
@@ -36,10 +45,7 @@ export default {
     }
   },
   //组件注册
-  components: {
-    comfooternav,
-    FilmListTopNav
-  },
+  components: {},
   // vue数据集中管理
   data () {
     return {
@@ -113,30 +119,36 @@ export default {
 
 
 
-<style>
-* {
-  padding: 0;
-  margin: 0;
-}
-html,
-body {
-  touch-action: none;
-  height: 100%;
-}
-ul,
-li {
-  list-style: none;
-}
-.fixed {
-  /* margin-top: 277px; */
-  /* position: fixed; */
-  /* top: 0; */
-  background: #ffffff;
-}
-.eert {
+<style lang="scss" scoped>
+.nav {
   position: fixed;
   bottom: 0;
-  background: #ffffff;
+  left: 0;
+  border-top: 1px solid #ccc;
+  height: 50px;
+  text-align: center;
+  background: #fff;
+  color: #7a7e83;
+  width: 100%;
+
+  ul {
+    display: flex;
+    align-items: center;
+    li {
+      margin-top: 5px;
+      flex: 1;
+      height: 43px;
+      &.active {
+        color: #fe5100;
+      }
+      p {
+        margin-top: 2px;
+      }
+      i {
+        font-size: 20px;
+      }
+    }
+  }
 }
 </style>
 

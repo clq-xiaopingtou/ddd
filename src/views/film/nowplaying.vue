@@ -1,27 +1,27 @@
 
 <template>
-  <div id="app">
-    <!-- <h1>我在上面</h1> -->
-
-    <comfooternav class="eert"></comfooternav>
-    <img src="https://static.maizuo.com/v5/upload/189bcf606b4bf49ad5de201a2ea5024d.jpg?x-oss-process=image/quality,Q_70"
-         alt=""
-         class="ui">
-    <FilmListTopNav class="fixed"></FilmListTopNav>
-    <!-- 下面是整体路由容器 -->
-    <router-view></router-view>
-
+  <div>
+    <!-- <h1>nowplaying</h1> -->
+    
+    <div>
+      <filmlist :list1="list1"
+                :key="'film' + list1.length"
+                :type="type">
+      </filmlist>
+    </div>
+    <!-- <loading></loading> -->
   </div>
 </template>
 
 
 
 <script>
-import comfooternav from '@/components/comfooternav.vue'
-import FilmListTopNav from '@/components/Filmlisttopnav'
+import { nowPlayingListData } from '@/api/api'
+// import loading from '@/components/loading'
+import filmlist from '@/components/filmlist.vue'
 export default {
   //组件名字
-  name: "app",
+  name: "nowplaying",
   //接收父组件给的东西 type是接收什么东西  default 默认值
   props: {
     list: {
@@ -37,13 +37,17 @@ export default {
   },
   //组件注册
   components: {
-    comfooternav,
-    FilmListTopNav
+    // filmlist
+    // loading
+    filmlist
   },
   // vue数据集中管理
   data () {
     return {
-      value: "1"
+      value: "1",
+      page: 1,
+      list1: [],
+      type: 1
     };
   },
   //方法 函数写这里
@@ -72,8 +76,10 @@ export default {
 
   },
   //页面渲染之后
-  mounted () {
-
+  async mounted () {
+    let ret = await nowPlayingListData(this.page);
+    console.log(ret);
+    this.list1 = ret.data.data.films;
   },
   //页面销毁之前
   beforeDestroy () {
@@ -114,29 +120,9 @@ export default {
 
 
 <style>
-* {
-  padding: 0;
-  margin: 0;
-}
-html,
-body {
-  touch-action: none;
-  height: 100%;
-}
-ul,
-li {
-  list-style: none;
-}
-.fixed {
-  /* margin-top: 277px; */
-  /* position: fixed; */
-  /* top: 0; */
-  background: #ffffff;
-}
-.eert {
-  position: fixed;
-  bottom: 0;
-  background: #ffffff;
+.ui {
+  width: 540px;
+  height: 277px;
 }
 </style>
 
