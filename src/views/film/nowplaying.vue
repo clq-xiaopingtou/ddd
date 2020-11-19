@@ -2,13 +2,16 @@
 <template>
   <div>
     <!-- <h1>nowplaying</h1> -->
-    
-    <div>
+
+    <!-- <div>
       <filmlist :list1="list1"
                 :key="'film' + list1.length"
                 :type="type">
       </filmlist>
-    </div>
+    </div> -->
+
+    <comfilmlist2 :list1="list1"
+                  :type="type"></comfilmlist2>
     <!-- <loading></loading> -->
   </div>
 </template>
@@ -18,7 +21,8 @@
 <script>
 import { nowPlayingListData } from '@/api/api'
 // import loading from '@/components/loading'
-import filmlist from '@/components/filmlist.vue'
+// import filmlist from '@/components/filmlist.vue'
+import comfilmlist2 from '@/components/filmlist2.vue'
 export default {
   //组件名字
   name: "nowplaying",
@@ -39,15 +43,16 @@ export default {
   components: {
     // filmlist
     // loading
-    filmlist
+    // filmlist,
+    comfilmlist2
   },
   // vue数据集中管理
   data () {
     return {
       value: "1",
-      page: 1,
       list1: [],
-      type: 1
+      page: 1,
+      type: 1,
     };
   },
   //方法 函数写这里
@@ -78,8 +83,11 @@ export default {
   //页面渲染之后
   async mounted () {
     let ret = await nowPlayingListData(this.page);
+    console.log('11123456765432134567');
     console.log(ret);
+    console.log('我要开始了');
     this.list1 = ret.data.data.films;
+    console.log('我结束了', this.list1);
   },
   //页面销毁之前
   beforeDestroy () {
@@ -120,10 +128,6 @@ export default {
 
 
 <style>
-.ui {
-  width: 540px;
-  height: 277px;
-}
 </style>
 
 

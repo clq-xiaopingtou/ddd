@@ -8,8 +8,8 @@
 
     <div class="item"
          v-else
-         v-for="(item, index) in list1"
-         @click="godetail(item.filmId)"
+         v-for="(item, index) in list2"
+         @click="goDetail(item.filmId)"
          :key="index">
 
       <div class="left">
@@ -30,7 +30,7 @@
       </div>
 
       <div class="right">
-        <span>购票</span>
+        <span>预约</span>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
   name: "filmlist",
   //接收父组件给的东西 type是接收什么东西  default 默认值
   props: {
-    list1: {
+    list2: {
       type: Array,
       default () {
         return [];
@@ -67,31 +67,17 @@ export default {
     return {
       value: "1",
       falg: true,
-      // list1: []
+      // list2: []
     };
   },
-
-
-
-
   //方法 函数写这里
-  methods: {
-    godetail (filmId) {
-      console.log('我进入了godetail的methods里面');
-      console.log(filmId);
-      this.$router.push({ name: 'detail', params: { filmId } })
-    }
-  },
-
-
-
-
+  methods: {},
   //计算属性
   computed: {
     isflag () {
       console.log('我来到了filmlist里的computed');
-      console.log(this.list1);
-      return this.list1[0];
+      console.log(this.list2);
+      return this.list2[0];
     }
   },
   //侦听器
@@ -118,9 +104,9 @@ export default {
   //页面渲染之后
   mounted () {
     console.log("我来到了filmlist mounted 里面");
-    console.log("this.list", this.list1);
+    console.log("this.list", this.list2);
     // 当数组里有数据时，loading动画取消
-    if (this.list1.length > 0) {
+    if (this.list2.length > 0) {
       this.flag = false;
     }
   },
@@ -214,7 +200,7 @@ export default {
   }
 }
 .bottom {
-  // margin-top: 68px;
+  // margin-top: 65px;
   margin-bottom: 50px;
 }
 </style>

@@ -1,13 +1,10 @@
 
 <template>
   <div id="app">
-    <!-- <h1>我在上面</h1> -->
-
-    <comfooternav class="eert"></comfooternav>
-    <img src="https://static.maizuo.com/v5/upload/189bcf606b4bf49ad5de201a2ea5024d.jpg?x-oss-process=image/quality,Q_70"
-         alt=""
-         class="ui">
-    <FilmListTopNav class="fixed"></FilmListTopNav>
+    <!-- 控制组件 -->
+    <comfooternav class="eert"
+                  v-if="is_show"></comfooternav>
+    <!-- <FilmListTopNav :class="fixed?'fixed':''"></FilmListTopNav> -->
     <!-- 下面是整体路由容器 -->
     <router-view></router-view>
 
@@ -18,7 +15,7 @@
 
 <script>
 import comfooternav from '@/components/comfooternav.vue'
-import FilmListTopNav from '@/components/Filmlisttopnav'
+// import FilmListTopNav from '@/components/Filmlisttopnav'
 export default {
   //组件名字
   name: "app",
@@ -38,12 +35,13 @@ export default {
   //组件注册
   components: {
     comfooternav,
-    FilmListTopNav
+    // FilmListTopNav
   },
   // vue数据集中管理
   data () {
     return {
-      value: "1"
+      value: "1",
+      is_show: true
     };
   },
   //方法 函数写这里
@@ -65,7 +63,9 @@ export default {
   },
   //组件创建之后
   created () {
-
+    this.eventBus.$on("footernav", (flag) => {
+      this.is_show = flag;
+    });
   },
   //页面渲染之前
   beforeMount () {
@@ -127,15 +127,15 @@ ul,
 li {
   list-style: none;
 }
-.fixed {
-  /* margin-top: 277px; */
-  /* position: fixed; */
-  /* top: 0; */
-  background: #ffffff;
-}
+
 .eert {
   position: fixed;
   bottom: 0;
+  background: #ffffff;
+}
+.fixed {
+  /* position: fixed; */
+  /* top: 0; */
   background: #ffffff;
 }
 </style>

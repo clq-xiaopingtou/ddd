@@ -1,15 +1,10 @@
 
 <template>
   <div>
-    <!-- <h1>film</h1> -->
-    <!-- <button @click="aaa">请求数据</button> -->
-    <!-- <div v-for="(item,index) in data1"
-         :key="index">
-      <h1>{{item.name}}</h1>
-      <img :src="item.imgUrl"
-           alt="">
-    </div> -->
-    <comfooternav></comfooternav>
+    <img src="https://static.maizuo.com/v5/upload/189bcf606b4bf49ad5de201a2ea5024d.jpg?x-oss-process=image/quality,Q_70"
+         alt=""
+         class="ui">
+    <FilmListTopNav :class="fixed?'fixed':''"></FilmListTopNav>
     <router-view></router-view>
   </div>
 </template>
@@ -19,6 +14,7 @@
 <script>
 import axios from 'axios'
 import comfooternav from '@/components/comfooternav.vue'
+import FilmListTopNav from '@/components/Filmlisttopnav'
 
 export default {
   //组件名字
@@ -38,22 +34,19 @@ export default {
   },
   //组件注册
   components: {
-    comfooternav
-
+    comfooternav,
+    FilmListTopNav
   },
   // vue数据集中管理
   data () {
     return {
       value: "1",
       data1: [],
-      // fixed: false
+      fixed: false
     };
   },
   //方法 函数写这里
   methods: {
-    aaa () {
-
-    }
 
   },
   //计算属性
@@ -73,27 +66,27 @@ export default {
   },
   //组件创建之后
   created () {
-    console.log('我进入film页面的aaa方法里面了');
-    axios.interceptors.request.use(function (config) {
-      config.headers = {
-        "X-Client-Info": '{"a":"3000","ch":"1002","v":"5.0.4","e":"1605418550380220569812993"}',
-        "X-Host": "mall.cfg.film-float.banner",
+    // console.log('我进入film页面的aaa方法里面了');
+    // axios.interceptors.request.use(function (config) {
+    //   config.headers = {
+    //     "X-Client-Info": '{"a":"3000","ch":"1002","v":"5.0.4","e":"1605418550380220569812993"}',
+    //     "X-Host": "mall.cfg.film-float.banner",
 
-      }
-      return config
-    }, function (err) {
-      if (err) {
-        console.log('err', err);
-      }
-    }),
+    //   }
+    //   return config
+    // }, function (err) {
+    //   if (err) {
+    //     console.log('err', err);
+    //   }
+    // }),
 
-      axios.get('https://m.maizuo.com/gateway?type=2&cityId=310100&k=9208927')
-        .then(data => {
-          console.log(data);
-          console.log(data.data);
-          this.data1 = data.data
+    //   axios.get('https://m.maizuo.com/gateway?type=2&cityId=310100&k=9208927')
+    //     .then(data => {
+    //       console.log(data);
+    //       console.log(data.data);
+    //       this.data1 = data.data
 
-        })
+    //     })
   },
   //页面渲染之前
   beforeMount () {
@@ -101,7 +94,15 @@ export default {
   },
   //页面渲染之后
   mounted () {
+    window.addEventListener('scroll', (e) => {
+      let top = document.documentElement.scrollTop;
+      if (top > 200) {
+        this.fixed = true
+      } else {
+        this.fixed = false
+      }
 
+    }, true)
   },
   //页面销毁之前
   beforeDestroy () {
@@ -142,9 +143,18 @@ export default {
 
 
 <style>
-img {
+/* img {
   width: 40%;
-  /* height: 200px; */
+  height: 200px;
+} */
+.fixed {
+  position: fixed;
+  top: 0;
+  background-color: #ffffff;
+}
+.ui {
+  width: 540px;
+  height: 277px;
 }
 </style>
 
